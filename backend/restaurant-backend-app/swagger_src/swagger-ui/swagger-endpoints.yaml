@@ -157,7 +157,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
 
-  /guest/groups/{groupReservationId}/submit:
+  /group-reservations/{groupReservationId}/submit:
     post:
       tags:
         - Group Reservations

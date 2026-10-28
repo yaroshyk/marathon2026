@@ -58,7 +58,9 @@ public class GuestSessionRepository(IDynamoDBContext context) : IGuestSessionRep
             IndexName = GlobalSecondaryIndexes.GuestSession.GroupReservationId
         }).GetRemainingAsync();
 
-        return result.Count;
+        // Counts joined guests only. The owner is always added as "+1" by the callers,
+        // so the owner session must not be counted here a second time.
+        return result.Count(s => !s.IsOwnerSession);
     }
 
     public async Task DeleteAsync(GuestSession session)
